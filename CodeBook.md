@@ -78,6 +78,12 @@ We are working with the means and standard deviations, which are the following c
 542 fBodyBodyGyroJerkMag.mean
 543 fBodyBodyGyroJerkMag.std
 
+In the final results, we present the averages of these parameters per subject (person) and kind of activity.
+
+Thus we group all the information on the following two variables:
+person
+activity.name
+
 # The data
 
 All data used in this project comes from
@@ -85,8 +91,8 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 (Extracted 2014-11-23.)
 
 The content of the zip file has been unpacked and included in the git repo in the ["UCI HAR Dataset"](UCI%20HAR%20Dataset/) directory.
-(The downside of this is that the git repo gets very big...)
+(The downside of this is that the git repo gets very big and slow...)
 
 # Transformations & work done to clean data
 
-To Be Determined.
+Just run run_analysis.R on top of the UCI HAR Dataset. Results will be in "averages.txt".

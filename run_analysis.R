@@ -13,9 +13,8 @@ X.test <- read.table("UCI\ HAR\ Dataset/test/X_test.txt")
 subject <- read.table("UCI\ HAR\ Dataset/test/subject_test.txt")
 X.test <- cbind(X.test, subject)
 
-# Activity name becomes 563
-y.test <- read.table("UCI\ HAR\ Dataset/test/y_test.txt")
-activity <- apply(y.test, 1, get.activity.name)
+# Activity becomes 563
+activity <- read.table("UCI\ HAR\ Dataset/test/y_test.txt")
 X.test <- cbind(X.test, activity)
 
 # Read Train Data
@@ -26,9 +25,8 @@ X.train <- read.table("UCI\ HAR\ Dataset/train/X_train.txt")
 subject <- read.table("UCI\ HAR\ Dataset/train/subject_train.txt")
 X.train <- cbind(X.train, subject)
 
-# Activity name becomes 563
-y.train <- read.table("UCI\ HAR\ Dataset/train/y_train.txt")
-activity <- apply(y.train, 1, get.activity.name)
+# Activity becomes 563
+activity <- read.table("UCI\ HAR\ Dataset/train/y_train.txt")
 X.train <- cbind(X.train, activity)
 
 X.all <- rbind(X.test, X.train)
@@ -108,4 +106,14 @@ columns = read.table(text="1 tBodyAcc.mean.X
 mean.std <- X.all[,columns[[1]]]
 colnames(mean.std) <- columns[[2]]
 
-head(mean.std)
+result <- aggregate(mean.std, by=list(mean.std$person, mean.std$activity), mean)
+
+activity.name <- sapply(result$activity, get.activity.name)
+
+# Put "person" and "activity.name" in beginning and remove activity code and redundant stuff.
+person <- result[,"person"]
+result.data <- result[,3:(length(result)-2)]
+final.result <- cbind(person, activity.name, result.data)
+
+write.table(final.result, 'averages.txt', row.names=FALSE)
+
